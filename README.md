@@ -1,33 +1,74 @@
-## Requirements
- 
-- MongoDB
-- Python 3 (defaults to Python 3.7, but you can change this in the Pipfile before setup)
+## A Flask Authentication Boilerplate.
+#### *Blueprints + React + Typescript + MongoDB*
 
-## Setup instructions
+*spawned from* [*Luke Peters work here*](https://github.com/LukePeters/flask-mongo-api-boilerplate)
 
-1. Clone this repo to your local web server
-2. `cd` into the directory within the terminal
-3. Run `./setup` to setup pipenv and configure the Flask app
+#### *Setup:*
 
-Here's a quick video of the setup process (no audio): [flask-mongo-api-boilerplate-setup.mp4](https://img.lukepeters.me/flask-mongo-api-boilerplate-setup.mp4)
+```
+# clone:
+git clone https://github.com/Jesssullivan/Flask-Mongo-Authenticate/ && cd Flask-Mongo-Authenticate
 
-## Running the app
+# venv:
+python3 -m venv api_venv
+source api_venv/bin/activate
+pip3 install -r requirements.txt
 
-1. Run `pipenv shell` to activate the virtual environment
-2. Run `./run` to start the Flask application
+# node:
+npm install
 
-## Further configuration
+# permiss:
+sudo chmod +x setup run
 
-You can configure the app manually by editing the `api/main/config/config.cfg` file.
+# configure (default values are provided too):
+./setup
 
-## Auth tokens
+# have at it:
+./run
+```
 
-There is a very basic front-end example in place within the `/web` directory. It demonstrates making a few API calls (User Add and User Login).
 
-A successful login request will return two tokens: `AccessToken` and `RefreshToken`. These should be saved to localStorage and used to set the `AccessToken` and `RefreshToken` request headers for all protected routes (e.g. `GET /user/`).
 
-You can refresh the `AccessToken` when it returns as expired by submitting a request to `GET /user/auth/`.
+- - -
 
-## Notes
 
-Please excuse the brief instructions. I've only run this in my own environment (MacOS, Python 3.7, MongoDB 4.0.4, pipenv 2018.11.14) so it may not run out of the box on your computer, but I'd be happy to help debug if you get stuck. Reach out to me on Twitter: [@MoonlightLuke](https://twitter.com/MoonlightLuke)
+
+### *Structure:*
+
+
+
+```console
+├── api
+  ├── main
+    ├── auth
+      └── token authentication methods
+    ├── config
+      └── the ./setup script populates a new config.cfg file for Flask,
+          using the ##FIELDS## provided in config.cfg.sample
+    ├── tools
+      └── utilities for date/time, expression matching, the like
+    └── user
+      └── models.py defines the User() class
+      └── routes.py implements User() methods api/routes as a blueprint
+          (registered at /user/)
+├── public
+  └── all hot reloading and whatnot is done from react-scripts at index.html
+└── src
+  └── insert client-side source here, hack away  xD
+      the thinking is one deal with compiling & serving production code elsewhere
+```
+
+
+- - -
+
+*Notes:*
+
+- Only tested on Ubuntu with GNU utilities, YMMV
+- On Mac, please use GNU `sed`, see `./setup` for details
+
+```
+# MongoDB & gnu sed for Mac:
+brew install gnu-sed
+brew tap mongodb/brew
+brew install mongodb-community@4.4
+```

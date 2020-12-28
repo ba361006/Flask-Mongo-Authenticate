@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Front-End App</title>
-  <link rel="stylesheet" href="app.css">
-</head>
-<body>
+  <head>
+    <title>A Terrific Boilerplate</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+
+  <body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
 
   <div class="app-wrapper">
 
     <!-- Add User Form -->
     <div class="app-panel">
-    
+
       <h3 class="centered">User Signup</h3>
 
       <form id="add-user-form">
@@ -23,7 +30,7 @@
 
         <label for="last_name" class="input-label">Last Name</label>
         <input type="text" name="last_name" id="last_name" class="input-field" required>
-        
+
         <label for="email" class="input-label">Email Address</label>
         <input type="email" name="email" id="email" class="input-field" required>
 
@@ -33,7 +40,7 @@
         <div class="centered">
           <input type="submit" value="Submit" class="btn">
         </div>
-        
+
       </form>
 
       <div id="add-user-success" class="success-message">
@@ -44,7 +51,7 @@
 
     <!-- Add User Form -->
     <div class="app-panel">
-    
+
       <h3 class="centered">User Login</h3>
 
       <form id="login-form">
@@ -58,7 +65,7 @@
         <div class="centered">
           <input type="submit" value="Submit" class="btn">
         </div>
-        
+
       </form>
 
       <div id="login-success" class="success-message">
@@ -66,11 +73,7 @@
       </div>
 
     </div>
-
   </div>
-  
-  <script src="jquery.js"></script>
-  <script src="app.js"></script>
-  
-</body>
+  </body>
 </html>
+
