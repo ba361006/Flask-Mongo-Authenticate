@@ -1,18 +1,20 @@
 ## A Flask Authentication Boilerplate.
-#### *Blueprints + React + Typescript + MongoDB*
 
-*spawned from* [*Luke Peters work here*](https://github.com/LukePeters/flask-mongo-api-boilerplate)
+#### _Blueprints + React + Typescript + MongoDB_
 
-#### *Setup:*
+_spawned from_ [_Luke Peters work here_](https://github.com/LukePeters/flask-mongo-api-boilerplate)
+
+#### _Setup:_
 
 ```
 # clone:
 git clone https://github.com/Jesssullivan/Flask-Mongo-Authenticate/ && cd Flask-Mongo-Authenticate
 
+(Git Bash)
 # venv:
-python3 -m venv api_venv
-source api_venv/bin/activate
-pip3 install -r requirements.txt
+python3 -m venv .venv
+source .venv/Scripts/activate
+pip install -r requirements.txt
 
 # node:
 npm install
@@ -27,15 +29,9 @@ sudo chmod +x setup run
 ./run
 ```
 
+---
 
-
-- - -
-
-
-
-### *Structure:*
-
-
+### _Structure:_
 
 ```console
 ├── api
@@ -58,10 +54,9 @@ sudo chmod +x setup run
       the thinking is one deal with compiling & serving production code elsewhere
 ```
 
+---
 
-- - -
-
-*Notes:*
+_Notes:_
 
 - Only tested on Ubuntu with GNU utilities, YMMV
 - On Mac, please use GNU `sed`, see `./setup` for details
