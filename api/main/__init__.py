@@ -24,7 +24,7 @@ def create_app():
     else:
         mongo = MongoClient("localhost")
         mongo[app.config["MONGO_AUTH_DATABASE"]].authenticate(app.config["MONGO_AUTH_USERNAME"],
-                                                              app.config["MONGO_AUTH_PASSWORD"])
+                                                            app.config["MONGO_AUTH_PASSWORD"])
         app.db = mongo[app.config["MONGO_APP_DATABASE"]]
 
     # Register Blueprints

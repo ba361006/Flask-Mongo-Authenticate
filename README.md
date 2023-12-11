@@ -29,6 +29,15 @@ sudo chmod +x setup run
 ./run
 ```
 
+#### _Setup for Windows user:_
+1. clone the project
+2. create a virtual environment `python -m venv .venv` 
+3. get into the virtual environment `.venv/Scripts/activate`
+4. install the dependencies `pip install -r requirements.txt`
+5. setup the config for Flask API `./setup.ps1`
+6. press enter to the end
+7. done
+> to verify you are done, you can do `python ./api/run.py` as click the http url which should be http://127.0.0.1:5000. if you can see the json file with {"status": "Online"}, then you are good.
 ---
 
 ### _Structure:_
