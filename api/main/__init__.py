@@ -34,5 +34,12 @@ def create_app():
     @app.route("/")
     def index():
         return JsonResp({"status": "Online"}, 200)
+    
+    # MongoDB connection check
+    @app.route("/mongo")
+    def verfiy_mongo_connection():
+        db = mongo["local"]
+        collection = db["startup_log"]
+        return JsonResp({"status": collection.find_one()}, 200)
 
     return app
