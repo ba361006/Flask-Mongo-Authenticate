@@ -66,7 +66,7 @@ class User:
                 access_token = auth.encodeAccessToken(user["id"], user["email"], user["plan"])
                 refresh_token = auth.encodeRefreshToken(user["id"], user["email"], user["plan"])
 
-                app.db.users.update({"id": user["id"]}, {"$set": {
+                app.db.users.update_one({"id": user["id"]}, {"$set": {
                     "refresh_token": refresh_token,
                     "last_login": tools.nowDatetimeUTC()
                 }})
@@ -89,7 +89,7 @@ class User:
     def logout(self):
         try:
             tokenData = jwt.decode(request.headers.get("AccessToken"), app.config["SECRET_KEY"])
-            app.db.users.update({"id": tokenData["user_id"]}, {'$unset': {"refresh_token": ""}})
+            app.db.users.update_one({"id": tokenData["user_id"]}, {'$unset': {"refresh_token": ""}})
             # Note: At some point I need to implement Token Revoking/Blacklisting
             # General info here: https://flask-jwt-extended.readthedocs.io/en/latest/blacklist_and_token_revoking.html
         except:
@@ -126,13 +126,13 @@ class User:
             }, 400)
 
         else:
-            if app.db.users.save(user):
+            if app.db.users.insert_one(user):
 
                 # Log the user in (create and return tokens)
                 access_token = auth.encodeAccessToken(user["id"], user["email"], user["plan"])
                 refresh_token = auth.encodeRefreshToken(user["id"], user["email"], user["plan"])
 
-                app.db.users.update({"id": user["id"]}, {
+                app.db.users.update_one({"id": user["id"]}, {
                     "$set": {
                         "refresh_token": refresh_token
                     }

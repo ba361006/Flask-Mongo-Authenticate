@@ -10,11 +10,11 @@ _spawned from_ [_Luke Peters work here_](https://github.com/LukePeters/flask-mon
 # clone:
 git clone https://github.com/Jesssullivan/Flask-Mongo-Authenticate/ && cd Flask-Mongo-Authenticate
 
-(Git Bash)
+(Linux)
 # venv:
 python3 -m venv .venv
-source .venv/Scripts/activate
-pip install -r requirements.txt
+source .venv/bin/activate
+pip3 install -r ./api/requirements.txt
 
 # node:
 npm install
@@ -81,3 +81,44 @@ brew install gnu-sed
 brew tap mongodb/brew
 brew install mongodb-community@4.4
 ```
+
+### Docker deploy
+
+#### Docker setup for ubuntu  
+Install using the apt repository
+Before you install Docker Engine for the first time on a new host machine, you need to set up the Docker repository. Afterward, you can install and update Docker from the repository.
+
+1. Set up Docker's apt repository.
+```shell
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+```
+
+2. Install the Docker packages.
+```shell
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-compose
+```
+
+#### Run docker service
+
+##### to run docker service in background
+```shell
+sudo docker-compose up -d --scale app=3
+```
+
+
+#### MongoDB
+https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
+
+>Note that at the `ulimit Considerations` stage, remember to `open files` value to 64000

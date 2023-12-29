@@ -31,6 +31,6 @@ npm start &
 
 echo "starting Flask..."
 touch ${FLASKLOGS}
-python api/run.py
+python3 api/run.py
 
 exit 0

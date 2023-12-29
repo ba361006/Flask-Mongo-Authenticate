@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, send_file
 from flask_cors import CORS
 from pymongo import MongoClient
 from .tools.tools import JsonResp
+import socket
 import os
 
 # Import Routes
@@ -33,7 +34,10 @@ def create_app():
     # Index Routes
     @app.route("/")
     def index():
-        return JsonResp({"status": "Online"}, 200)
+        return JsonResp({
+            "status": "Online",
+            "Container ID": socket.gethostname()
+        }, 200)
     
     # MongoDB connection check
     @app.route("/mongo")
