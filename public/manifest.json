@@ -1,6 +1,6 @@
 {
-  "short_name": "Terrific Boilerplate",
-  "name": "Terrific Boilerplate",
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "favicon.ico",

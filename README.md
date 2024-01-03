@@ -29,20 +29,30 @@ sudo chmod +x setup run
 ./run
 ```
 
+_Note:_
+
+- stop frontend app:
+
+```shell
+npx kill-port 3000
+```
+
 #### _Setup for Windows user:_
+
 0. install MongoDB from its website
 1. add mongodb path to your environment variable path
-    - the default path is C:\Program Files\MongoDB\Server\<VERSION-NUMBER>\bin
+   - the default path is C:\Program Files\MongoDB\Server\<VERSION-NUMBER>\bin
 2. clone the project
-3. create a virtual environment `python -m venv .venv` 
+3. create a virtual environment `python -m venv .venv`
 4. get into the virtual environment `.venv/Scripts/activate`
 5. install the dependencies `pip install -r requirements.txt`
 6. setup the config for Flask API and Mongo DB `./setup.ps1`
 7. run the service `./run.ps1`
 8. done
-> to verify you are done  
-> Flask: you should see {"status": "Online"} from http://127.0.0.1:5000  
-> Mongo DB: you should see the login log from http://127.0.0.1:5000/mongo
+   > to verify you are done  
+   > Flask: you should see {"status": "Online"} from http://127.0.0.1:5000  
+   > Mongo DB: you should see the login log from http://127.0.0.1:5000/mongo
+
 ---
 
 ### _Structure:_
@@ -84,11 +94,13 @@ brew install mongodb-community@4.4
 
 ### Docker deploy
 
-#### Docker setup for ubuntu  
+#### Docker setup for ubuntu
+
 Install using the apt repository
 Before you install Docker Engine for the first time on a new host machine, you need to set up the Docker repository. Afterward, you can install and update Docker from the repository.
 
 1. Set up Docker's apt repository.
+
 ```shell
 # Add Docker's official GPG key:
 sudo apt-get update
@@ -106,6 +118,7 @@ sudo apt-get update
 ```
 
 2. Install the Docker packages.
+
 ```shell
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-compose
 ```
@@ -113,12 +126,39 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 #### Run docker service
 
 ##### to run docker service in background
+
 ```shell
 sudo docker-compose up -d --scale app=3
 ```
 
-
 #### MongoDB
+
 https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
 
->Note that at the `ulimit Considerations` stage, remember to `open files` value to 64000
+> Note that at the `ulimit Considerations` stage, remember to `open files` value to 64000
+
+_Note:_
+
+- enter db:
+
+```shell
+mongosh
+```
+
+- switch db (ex: new-app)
+
+```shell
+use new-app
+```
+
+- switch find documents from collection (ex: users collection)
+
+```shell
+db.users.find()
+```
+
+- empty collection (ex: users collection)
+
+```shell
+db.users.deleteMany({})
+```
