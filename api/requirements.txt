@@ -5,3 +5,7 @@ pymongo == 4.6.1
 python-jose == 3.3.0
 passlib == 1.7.4
 pytz == 2023.3.post1
+pylint == 3.0.3
+mypy == 1.8.0
+black == 23.12.1
+pre-commit == 3.6.0

@@ -6,7 +6,7 @@ _spawned from_ [_Luke Peters work here_](https://github.com/LukePeters/flask-mon
 
 #### _Setup:_
 
-```
+```shell
 # clone:
 git clone https://github.com/Jesssullivan/Flask-Mongo-Authenticate/ && cd Flask-Mongo-Authenticate
 
@@ -16,8 +16,17 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip3 install -r ./api/requirements.txt
 
-# node:
+# if the packages are not added into PATH, execute:
+export PATH="$HOME/.local/bin:$PATH"
+
+# to set up pre-commit hooks for python
+pre-commit
+
+# node(please use 20.10.0):
 npm install
+
+# to set up pre-commit for typescript
+npx husky install
 
 # permiss:
 sudo chmod +x setup run
@@ -50,8 +59,8 @@ npx kill-port 3000
 6. setup the config for Flask API and Mongo DB `./setup.ps1`
 7. run the service `./run.ps1`
 8. done
-   > to verify you are done  
-   > Flask: you should see {"status": "Online"} from http://127.0.0.1:5000  
+   > to verify you are done
+   > Flask: you should see {"status": "Online"} from http://127.0.0.1:5000
    > Mongo DB: you should see the login log from http://127.0.0.1:5000/mongo
 
 ---
