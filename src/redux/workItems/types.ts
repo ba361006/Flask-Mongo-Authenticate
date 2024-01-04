@@ -1,20 +1,17 @@
-import { Slice, SliceCaseReducers } from '@reduxjs/toolkit';
-import Database from '../../types/Database';
+import { Slice, SliceCaseReducers } from "@reduxjs/toolkit";
 
 export interface IWorkItemsState {
-  todo: Database.Todo;
   sessionState: ISessionState;
 }
 
 export interface ISessionState {
-  user: {
-    uid: string;
-    email: string | null;
-    displayName: string | null;
-    avatar: string | null;
-  } | null;
-  isAuthenticating: boolean;
-  isAdmin: boolean;
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  plan: string;
+  refresh_token: string;
+  access_token: string;
 }
 
 export type TWorkItemsSlice = Slice<
