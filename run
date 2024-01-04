@@ -4,10 +4,7 @@
 SRV='./srv'
 MONGODIR=${SRV}'/mongodb/'
 MONGOLOGS=${SRV}'/mongo_logs.txt'
-# FLASKLOGS='api/flask_logs.txt'
-
-# get into the virtualenv for Flask
-source .venv/Scripts/activate
+FLASKLOGS='api/flask_logs.txt'
 
 # make sure we exit flask & mongo as child processes:
 trap  "kill 0" EXIT

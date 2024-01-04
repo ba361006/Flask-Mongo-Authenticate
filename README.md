@@ -23,6 +23,7 @@ npm install
 sudo chmod +x setup run
 
 # configure (default values are provided too):
+# for Linux user, turn both setup and run script from "CRLF" to "LF"
 ./setup
 
 # have at it:
@@ -123,12 +124,37 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-compose
 ```
 
+3. Add user to the Docker group(run docker command without the `sudo` prefix)
+
+```shell
+sudo usermod -aG docker ${USER}
+```
+
 #### Run docker service
 
 ##### to run docker service in background
 
 ```shell
-sudo docker-compose up -d --scale app=3
+docker-compose up -d --scale app=3
+```
+
+##### common docker command
+
+```shell
+# to see the running docker container
+docker ps
+
+# to see the running / exited docker container
+docker ps -a
+
+# to see the docker images
+docker images
+
+# to remove the specific docker image
+docker image rm <docker-image-id>
+
+# to remove the specific docker container
+docker container remove <docker-container-id>
 ```
 
 #### MongoDB

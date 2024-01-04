@@ -7,3 +7,5 @@ api/main/config/*.cfg
 node_modules
 srv
 .eslintcache
+
+api/flask_logs.txt
