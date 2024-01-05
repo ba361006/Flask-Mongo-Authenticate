@@ -24,9 +24,11 @@ echo "starting MongoDB..."
 mongod --dbpath ./srv/mongodb/ --port 27017 &> ${MONGOLOGS} &
 
 echo "starting react-scripts..."
+cd frontend
 npm start &
 
 echo "starting Flask..."
+cd ../
 touch ${FLASKLOGS}
 python3 api/run.py
 
