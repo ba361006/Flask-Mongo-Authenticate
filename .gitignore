@@ -4,8 +4,8 @@
 .venv
 Pipfile.lock
 api/main/config/*.cfg
-node_modules
+frontend/node_modules
 srv
-.eslintcache
+frontend/.eslintcache
 
 api/flask_logs.txt
