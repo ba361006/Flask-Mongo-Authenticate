@@ -19,14 +19,11 @@ pip3 install -r ./api/requirements.txt
 # if the packages are not added into PATH, execute:
 export PATH="$HOME/.local/bin:$PATH"
 
-# to set up pre-commit hooks for python
-pre-commit
+# to set up pre-commit hooks
+pre-commit install
 
 # node(please use npm 10.2.3):
 npm install
-
-# to set up pre-commit for typescript
-npx husky install
 
 # permiss:
 sudo chmod +x setup run
