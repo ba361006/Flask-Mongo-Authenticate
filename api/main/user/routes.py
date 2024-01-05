@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 from flask import Blueprint
-from .models import User
+
 from ..auth.auth import token_required
+from .models import User
 
 
 user_blueprint = Blueprint("user", __name__)

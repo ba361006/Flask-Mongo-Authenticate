@@ -1,12 +1,18 @@
-from flask import Flask, request, render_template, send_file
+# -*- coding: utf-8 -*-
+import os
+import socket
+
+from flask import Flask
+from flask import render_template
+from flask import request
+from flask import send_file
 from flask_cors import CORS
 from pymongo import MongoClient
+
 from .tools.tools import JsonResp
-import socket
-import os
+from .user.routes import user_blueprint
 
 # Import Routes
-from .user.routes import user_blueprint
 
 
 def create_app():
@@ -14,7 +20,7 @@ def create_app():
     app = Flask(__name__)
     app.config.from_pyfile("config/config.cfg")
     cors = CORS(app, resources={r"/*": {"origins": app.config["FRONTEND_DOMAIN"]}})
-    app.template_folder = '.'
+    app.template_folder = "."
     # Misc Config
     os.environ["TZ"] = app.config["TIMEZONE"]
 
@@ -24,8 +30,9 @@ def create_app():
         app.db = mongo[app.config["MONGO_APP_DATABASE"]]
     else:
         mongo = MongoClient("localhost")
-        mongo[app.config["MONGO_AUTH_DATABASE"]].authenticate(app.config["MONGO_AUTH_USERNAME"],
-                                                            app.config["MONGO_AUTH_PASSWORD"])
+        mongo[app.config["MONGO_AUTH_DATABASE"]].authenticate(
+            app.config["MONGO_AUTH_USERNAME"], app.config["MONGO_AUTH_PASSWORD"]
+        )
         app.db = mongo[app.config["MONGO_APP_DATABASE"]]
 
     # Register Blueprints
@@ -34,11 +41,8 @@ def create_app():
     # Index Routes
     @app.route("/")
     def index():
-        return JsonResp({
-            "status": "Online",
-            "Container ID": socket.gethostname()
-        }, 200)
-    
+        return JsonResp({"status": "Online", "Container ID": socket.gethostname()}, 200)
+
     # MongoDB connection check
     @app.route("/mongo")
     def verfiy_mongo_connection():
