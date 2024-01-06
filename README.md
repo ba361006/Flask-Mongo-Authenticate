@@ -23,7 +23,7 @@ export PATH="$HOME/.local/bin:$PATH"
 pre-commit install
 
 # node(please use npm 10.2.3):
-npm install
+npm install --prefix ./frontend
 
 # permiss:
 sudo chmod +x setup run

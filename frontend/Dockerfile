@@ -22,8 +22,8 @@ FROM nginx:alpine
 RUN echo "COPY --from=build /frontend/build /usr/share/nginx/html"
 COPY --from=build /frontend/build /usr/share/nginx/html
 
-RUN echo "EXPOSE 80"
-EXPOSE 80
+RUN echo "EXPOSE 3000"
+EXPOSE 3000
 
 RUN echo "CMD nginx -g 'daemon off;'"
 CMD ["nginx", "-g", "daemon off;"]

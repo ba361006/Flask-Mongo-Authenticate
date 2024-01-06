@@ -33,8 +33,8 @@ Start-Process -FilePath "mongod" -ArgumentList "--dbpath $MONGODIR --port 27017"
 
 # Start React scripts
 Write-Host "starting react-scripts..."
-Start-Job -ScriptBlock { 
-    & npm start 
+Start-Job -ScriptBlock {
+    & npm start
 }
 
 # Start Flask
