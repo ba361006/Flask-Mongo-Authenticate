@@ -173,6 +173,9 @@ docker image rm <docker-image-id>
 
 # to remove the specific docker container
 docker container remove <docker-container-id>
+
+# to rebuild a docker container if you modify something
+docker-compose up --build <service-name-in-docker-compose.yml>
 ```
 
 #### MongoDB

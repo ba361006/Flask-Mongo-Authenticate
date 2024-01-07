@@ -38,7 +38,7 @@ const Signin = () => {
   const onSubmitSignin = async (data: SignInFormData) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/user/login/",
+        "http://app:5000/user/login/",
         data
       );
       console.log("Signin Success:", response.data);
