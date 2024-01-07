@@ -8,9 +8,11 @@ services:
   frontend:
     build: ./frontend
     ports:
-        - "3000:3000"
+      # 3000:3000 means the host machine's port 3000 will be mapped to container's port 3000
+      # 3000 means within the container, it's listening to the port 3000
+      - "3000:3000"
     depends_on:
-        - app
+      - app
     networks:
       - default-network
 

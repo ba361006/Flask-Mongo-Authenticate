@@ -144,6 +144,18 @@ sudo usermod -aG docker ${USER}
 docker-compose up -d --scale app=3
 ```
 
+##### to clean everything related to this project
+```shell
+# this will remove docker network/containers
+docker-compose down
+
+# to see every images on your device
+docker images
+
+# remove the docker image, it can remove multiple images at once by adding more <image-id>
+docker image remove <image-id-1>
+```
+
 ##### common docker command
 
 ```shell
