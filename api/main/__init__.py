@@ -19,7 +19,8 @@ def create_app():
     # Flask Config
     app = Flask(__name__)
     app.config.from_pyfile("config/config.cfg")
-    cors = CORS(app, resources={r"/*": {"origins": app.config["FRONTEND_DOMAIN"]}})
+    CORS(app)
+    # cors = CORS(app, resources={r"/*": {"origins": app.config["FRONTEND_DOMAIN"]}})
     app.template_folder = "."
     # Misc Config
     os.environ["TZ"] = app.config["TIMEZONE"]
@@ -39,9 +40,18 @@ def create_app():
     app.register_blueprint(user_blueprint, url_prefix="/user")
 
     # Index Routes
-    @app.route("/")
+    @app.route("/api/")
     def index():
-        return JsonResp({"status": "Online", "Container ID": socket.gethostname()}, 200)
+        return JsonResp(
+            {"status2": "Online", "Container ID": socket.gethostname()}, 200
+        )
+
+    # Index Routes
+    @app.route("/api")
+    def index():
+        return JsonResp(
+            {"status1": "Online", "Container ID": socket.gethostname()}, 200
+        )
 
     # MongoDB connection check
     @app.route("/mongo")
