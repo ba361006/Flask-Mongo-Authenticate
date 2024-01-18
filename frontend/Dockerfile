@@ -1,29 +1,26 @@
-# Step 1: Build the React application
-FROM node:latest as build
+# Base Image
+FROM node:latest
 
-RUN echo "WORKDIR /frontend"
+# Set Working Directory
 WORKDIR /frontend
 
-RUN echo "COPY package.json ."
-COPY package.json .
+# Copy package.json and package-lock.json
+COPY package.json package-lock.json* ./
 
-RUN echo "RUN npm install"
+# Install dependencies
 RUN npm install
 
-RUN echo "COPY . ."
+# Copy frontend source
 COPY . .
 
-RUN echo "RUN npm run build"
+# Build the React application
 RUN npm run build
 
-# Step 2: Serve the app using Nginx
-FROM nginx:alpine
+# Install serve to serve the build directory
+RUN npm install -g serve
 
-RUN echo "COPY --from=build /frontend/build /usr/share/nginx/html"
-COPY --from=build /frontend/build /usr/share/nginx/html
-
-RUN echo "EXPOSE 3000"
+# Listen to port 3000 within the container
 EXPOSE 3000
 
-RUN echo "CMD nginx -g 'daemon off;'"
-CMD ["nginx", "-g", "daemon off;"]
+# Start the application
+CMD ["serve", "-s", "build", "-l", "3000"]

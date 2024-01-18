@@ -42,16 +42,7 @@ def create_app():
     # Index Routes
     @app.route("/")
     def index():
-        return JsonResp(
-            {"status2": "Online", "Container ID": socket.gethostname()}, 200
-        )
-
-    # Index Routes
-    @app.route("/api")
-    def index1():
-        return JsonResp(
-            {"status1": "Online", "Container ID": socket.gethostname()}, 200
-        )
+        return JsonResp({"status": "Online", "Container ID": socket.gethostname()}, 200)
 
     # MongoDB connection check
     @app.route("/mongo")

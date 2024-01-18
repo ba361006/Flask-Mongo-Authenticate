@@ -37,20 +37,17 @@ const Signin = () => {
 
   const onSubmitSignin = async (data: SignInFormData) => {
     try {
-      console.log("get!");
-      console.log("get: ", await axios.get("http://localhost/api/"));
-      console.log("getout!");
-      // const response = await axios.post(
-      //   "http://localhost/api/",
-      //   data
-      // );
-      // console.log("Signin Success:", response.data);
-      // setAlert({
-      //   show: true,
-      //   message: "User successfully authenticated!",
-      //   severity: "success",
-      // });
-      // reset(); // Reset the form fields
+      const response = await axios.post(
+        "http://localhost/api/user/login/",
+        data
+      );
+      console.log("Signin Success:", response.data);
+      setAlert({
+        show: true,
+        message: "User successfully authenticated!",
+        severity: "success",
+      });
+      reset(); // Reset the form fields
     } catch (error) {
       console.error("Signin Error:", error);
       setAlert({
