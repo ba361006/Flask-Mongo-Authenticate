@@ -19,7 +19,9 @@ def create_app():
     # Flask Config
     app = Flask(__name__)
     app.config.from_pyfile("config/config.cfg")
-    CORS(app)
+    cors = CORS(
+        app, resources={r"/*": {"origins": "http://localhost:3000"}}
+    )  # TODO: for prod
     # cors = CORS(app, resources={r"/*": {"origins": app.config["FRONTEND_DOMAIN"]}})
     app.template_folder = "."
     # Misc Config
