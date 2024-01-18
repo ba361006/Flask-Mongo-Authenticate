@@ -40,7 +40,7 @@ def create_app():
     app.register_blueprint(user_blueprint, url_prefix="/user")
 
     # Index Routes
-    @app.route("/api/")
+    @app.route("/")
     def index():
         return JsonResp(
             {"status2": "Online", "Container ID": socket.gethostname()}, 200
@@ -48,7 +48,7 @@ def create_app():
 
     # Index Routes
     @app.route("/api")
-    def index():
+    def index1():
         return JsonResp(
             {"status1": "Online", "Container ID": socket.gethostname()}, 200
         )
