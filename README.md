@@ -2,13 +2,11 @@
 
 #### _Blueprints + React + Typescript + MongoDB_
 
-_spawned from_ [_Luke Peters work here_](https://github.com/LukePeters/flask-mongo-api-boilerplate)
-
 #### _Setup:_
 
 ```shell
 # clone:
-git clone https://github.com/Jesssullivan/Flask-Mongo-Authenticate/ && cd Flask-Mongo-Authenticate
+git clone https://github.com/jack20951948/Flask-Mongo-Authenticate/ && cd Flask-Mongo-Authenticate
 
 (Linux)
 # venv:
