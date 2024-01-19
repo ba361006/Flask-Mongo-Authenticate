@@ -33,7 +33,7 @@ SECRET_KEY=`cat /dev/urandom | head -c 24 | base64`
 FLASK_PORT_DEFAULT=5000
 FLASK_DIRECTORY_DEFAULT="$(pwd)/api/"
 MONGO_HOSTNAME_DEFAULT="localhost"
-FRONTEND_DOMAIN_DEFAULT="http://localhost"
+FRONTEND_DOMAIN_DEFAULT="http://localhost:3000"
 MONGO_APP_DATABASE__DEFAULT="new-app"
 
 # Domain the Flask app will be running on

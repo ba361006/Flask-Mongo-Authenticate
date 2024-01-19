@@ -32,7 +32,7 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
-      - app # based on the name in line 12
+      - app
       - frontend
     ports:
       - "80:80"

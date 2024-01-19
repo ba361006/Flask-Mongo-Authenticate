@@ -37,10 +37,14 @@ const Signin = () => {
 
   const onSubmitSignin = async (data: SignInFormData) => {
     try {
+      // const response = await axios.post(
+      //   "http://localhost/api/user/login/",
+      //   data
+      // ); // TODO: for prod
       const response = await axios.post(
-        "http://localhost/api/user/login/",
+        "http://localhost:5000/user/login/",
         data
-      );
+      ); // TODO: for dev
       console.log("Signin Success:", response.data);
       setAlert({
         show: true,

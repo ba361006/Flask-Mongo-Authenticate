@@ -19,18 +19,22 @@ def create_app():
     # Flask Config
     app = Flask(__name__)
     app.config.from_pyfile("config/config.cfg")
+    # cors = CORS(
+    #     app, resources={r"/*": {"origins": "http://localhost:3000"}}
+    # )  # TODO: for prod
     cors = CORS(
-        app, resources={r"/*": {"origins": "http://localhost:3000"}}
-    )  # TODO: for prod
-    # cors = CORS(app, resources={r"/*": {"origins": app.config["FRONTEND_DOMAIN"]}})
+        app, resources={r"/*": {"origins": app.config["FRONTEND_DOMAIN"]}}
+    )  # TODO: for dev
     app.template_folder = "."
     # Misc Config
     os.environ["TZ"] = app.config["TIMEZONE"]
 
     # Database Config
     if app.config["ENVIRONMENT"] == "development":
-        mongo = MongoClient("host.docker.internal", 27017)
-        # mongo = MongoClient(app.config["MONGO_HOSTNAME"], app.config["MONGO_PORT"])
+        # mongo = MongoClient("host.docker.internal", 27017) # TODO: for prod
+        mongo = MongoClient(
+            app.config["MONGO_HOSTNAME"], app.config["MONGO_PORT"]
+        )  # TODO: for dev
         app.db = mongo[app.config["MONGO_APP_DATABASE"]]
     else:
         mongo = MongoClient("localhost")
