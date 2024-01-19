@@ -29,7 +29,8 @@ def create_app():
 
     # Database Config
     if app.config["ENVIRONMENT"] == "development":
-        mongo = MongoClient(app.config["MONGO_HOSTNAME"], app.config["MONGO_PORT"])
+        mongo = MongoClient("host.docker.internal", 27017)
+        # mongo = MongoClient(app.config["MONGO_HOSTNAME"], app.config["MONGO_PORT"])
         app.db = mongo[app.config["MONGO_APP_DATABASE"]]
     else:
         mongo = MongoClient("localhost")

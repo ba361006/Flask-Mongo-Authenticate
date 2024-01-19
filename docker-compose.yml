@@ -1,4 +1,4 @@
-version: "3"
+version: "3.5"
 
 networks:
   default-network: # docker network name, it will be <repo-name>_<default-network>
@@ -22,6 +22,10 @@ services:
         - "5000"
     networks:
       - default-network
+    extra_hosts:
+      # to allow this docker service communicate with host machine
+      # otherwise we have to get the gateway id via docker network
+      - "host.docker.internal:host-gateway"
 
   nginx:
     image: nginx:1.24.0

@@ -41,17 +41,17 @@ function App() {
   const onSubmitSignup = async (data: SignUpFormData) => {
     try {
       console.log("signup before");
-      console.log("get: ", await axios.get("http://localhost:5000"));
+      console.log("get: ", await axios.get("http://localhost/api"));
       console.log("signup after");
-      // // const response = await axios.post("http://localhost/api/user/", data); // TODO: for prod
-      // const response = await axios.post("http://localhost:5000/user/", data);
-      // console.log("Signup Success:", response.data);
-      // setAlert({
-      //   show: true,
-      //   message: "Signup successful!",
-      //   severity: "success",
-      // });
-      // reset(); // Reset the form fields
+      const response = await axios.post("http://localhost/api/user/", data); // TODO: for prod
+      // const response = await axios.post("http://localhost:5000/user/", data); // TODO: for dev
+      console.log("Signup Success:", response.data);
+      setAlert({
+        show: true,
+        message: "Signup successful!",
+        severity: "success",
+      });
+      reset(); // Reset the form fields
     } catch (error) {
       console.error("Signup Error:", error);
       setAlert({
