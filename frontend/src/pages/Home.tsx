@@ -40,9 +40,7 @@ function App() {
 
   const onSubmitSignup = async (data: SignUpFormData) => {
     try {
-      // const response = await axios.post("http://localhost/api/user/", data); // TODO: for prod
-      const response = await axios.post("http://localhost:5000/user/", data); // TODO: for dev
-      console.log("Signup Success:", response.data);
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/user/`, data);
       setAlert({
         show: true,
         message: "Signup successful!",

@@ -9,3 +9,5 @@ srv
 frontend/.eslintcache
 
 api/flask_logs.txt
+
+frontend/.env

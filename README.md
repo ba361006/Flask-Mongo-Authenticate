@@ -1,67 +1,34 @@
-## A Flask Authentication Boilerplate.
+# A Flask Authentication Boilerplate.
+- Development:
+  - React + Typescript + MongoDB
 
-#### _Blueprints + React + Typescript + MongoDB_
+- Production:
+  - React + Typescript + MongoDB + Docker
 
-#### _Setup:_
+## Overview
+- [APP versions](#app-versions)
+- [Structure](#structure)
+- [Development Setup](#development-setup)
+- [Docker setup for production on Ubuntu](#docker-setup-for-production-on-ubuntu)
+- [Common Docker command](#common-docker-command)
+- [Common MongoDB command](#common-mongodb-command)
 
-```shell
-# clone:
-git clone https://github.com/jack20951948/Flask-Mongo-Authenticate/ && cd Flask-Mongo-Authenticate
+_spawned from_ [_Luke Peters work here_](https://github.com/LukePeters/flask-mongo-api-boilerplate)
 
-(Linux)
-# venv:
-python3 -m venv .venv
-source .venv/bin/activate
-pip3 install -r ./api/requirements.txt
+## APP Versions
+| App Name | Version |
+|----|----|
+|Ubuntu|20.04.6 LTS|
+|Docker|24.0.7|
+|Python|3.12.1|
+|Node|20.11.0|
+|Npm|10.2.4|
+|Nvm|0.35.3|
+|Nginx|1.24.0|
+|MongoDB|7.0.5|
+|Mongosh|2.1.1|
 
-# if the packages are not added into PATH, execute:
-export PATH="$HOME/.local/bin:$PATH"
-
-# to set up pre-commit hooks
-pre-commit install
-
-# node(please use npm 10.2.3):
-npm install --prefix ./frontend
-
-# permiss:
-sudo chmod +x setup run
-
-# configure (default values are provided too):
-# for Linux user, turn both setup and run script from "CRLF" to "LF"
-./setup
-
-# have at it:
-./run
-```
-
-_Note:_
-
-- stop frontend app:
-
-```shell
-npx kill-port 3000
-```
-
-#### _Setup for Windows user:_
-
-0. install MongoDB from its website
-1. add mongodb path to your environment variable path
-   - the default path is C:\Program Files\MongoDB\Server\<VERSION-NUMBER>\bin
-2. clone the project
-3. create a virtual environment `python -m venv .venv`
-4. get into the virtual environment `.venv/Scripts/activate`
-5. install the dependencies `pip install -r requirements.txt`
-6. setup the config for Flask API and Mongo DB `./setup.ps1`
-7. run the service `./run.ps1`
-8. done
-   > to verify you are done
-   > Flask: you should see {"status": "Online"} from http://127.0.0.1:5000
-   > Mongo DB: you should see the login log from http://127.0.0.1:5000/mongo
-
----
-
-### _Structure:_
-
+## Structure
 ```console
 ├── api
   ├── main
@@ -83,127 +50,147 @@ npx kill-port 3000
       the thinking is one deal with compiling & serving production code elsewhere
 ```
 
----
+## Development Setup
+> This project works on Ubuntu 20.04.6 LTS. For Windows users, please run this project on WSL. You may use this command `wsl --install -d Ubuntu-20.04` on your PowerShell to install the Ubuntu 20.04.6 LTS
 
-_Notes:_
+- clone the project
+  - `git clone https://github.com/jack20951948/Flask-Mongo-Authenticate.git`
+- move to project directory
+  - `cd Flask-Mongo-Authenticate`
+- install Python 3.12.1, this step depends on OS you may find any resoucre on the internet achieve this
+- create python virtual environment
+  - `python3.12 -m venv .venv`
+- get into the virtual environment
+  - `source ./.venv/bin/activate`
+- install the dependencies
+  - `pip3 install -r ./api/requirements.txt`
+- add packages to PATH
+  - `export PATH="$HOME/.local/bin:$PATH"`
+- install pre-commit
+  - `pre-commit install`
+- install nvm 0.35.3
+  - `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash`
+- reopen your terminal
+- install node 20.11.0 via nvm
+  - `nvm install 20.11.0`
+- take 20.11.0 as node version
+  - `nvm use 20.11.0`
+- install frontend dependencies
+  - `cd frontend`
+  - `npm install`
+- give permission for setup / run script
+  - `cd ..`
+  - `sudo chmod +x setup run`
+- modify end of line sequence style for both **run** and **setup** script
+  - select **LF**
+- install MongoDB 7.0.5 and Mongosh 2.1.1
+  - note that at the **Install the MongoDB packages** stage, you may select the version specificly to **MongoDB 7.0.5** and **Mongosh 2.1.1**
+  - note that at the  **ulimit Considerations** stage, you may assign `open files` value to 64000
+  - ref [here](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/)
+- run **setup** script, it only needs to run once while getting started
+  - `./setup`
+- run **run** script to start developing
+  - `./run`
+- confirm frontend is working
+  - go to [localhost:3000](http://localhost:3000/) and you should see the login page
+- confirm backend is working
+  - go to [localhost:5000](http://localhost:5000/) and you should see the json response
+- confirm mongoDB is working
+  - go to [localhost:5000/mongo](http://localhost:5000/mongo) and you should see the login message from your mongoDB
 
-- Only tested on Ubuntu with GNU utilities, YMMV
-- On Mac, please use GNU `sed`, see `./setup` for details
 
-```
-# MongoDB & gnu sed for Mac:
-brew install gnu-sed
-brew tap mongodb/brew
-brew install mongodb-community@4.4
-```
-
-### Docker deploy
-
-#### Docker setup for ubuntu
-
-Install using the apt repository
-Before you install Docker Engine for the first time on a new host machine, you need to set up the Docker repository. Afterward, you can install and update Docker from the repository.
-
+## Docker setup for production on Ubuntu
 1. Set up Docker's apt repository.
+    ```shell
+    # Add Docker's official GPG key:
+    sudo apt-get update
+    sudo apt-get install ca-certificates curl gnupg
+    sudo install -m 0755 -d /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    sudo chmod a+r /etc/apt/keyrings/docker.gpg
 
-```shell
-# Add Docker's official GPG key:
-sudo apt-get update
-sudo apt-get install ca-certificates curl gnupg
-sudo install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-sudo chmod a+r /etc/apt/keyrings/docker.gpg
+    # Add the repository to Apt sources:
+    echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+      $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    sudo apt-get update
+    ```
 
-# Add the repository to Apt sources:
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
-```
-
-2. Install the Docker packages.
-
-```shell
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-compose
-```
+2. Install the Docker version 24.0.7
+    ```shell
+    sudo apt-get install docker-ce=5:24.0.7-1~ubuntu.20.04~focal docker-ce-cli=5:24.0.7-1~ubuntu.20.04~focal containerd.io docker-buildx-plugin docker-compose-plugin docker-compose
+    ```
 
 3. Add user to the Docker group(run docker command without the `sudo` prefix)
+    ```shell
+    sudo usermod -aG docker ${USER}
+    ```
 
-```shell
-sudo usermod -aG docker ${USER}
-```
+---
 
-#### Run docker service
 
-##### to run docker service in background
+## Common Docker command
+- run docker containers in background
+    ```shell
+    # execute this command at the same directory as docker-compose.yml
+    docker-compose up -d --scale backend=3
+    ```
 
-```shell
-docker-compose up -d --scale app=3
-```
+- remove docker images / containers / networks / volume from this project
+    ```shell
+    # execute this command at the same directory as docker-compose.yml
+    docker-compose down --rmi all -v
+    ```
 
-##### to clean everything related to this project
-```shell
-# this will remove docker network/containers
-docker-compose down
+- remove docker containers / networks
+    ```shell
+    # execute this command at the same directory as docker-compose.yml
+    docker-compose down
+    ```
 
-# to see every images on your device
-docker images
+- list every image on your device
+    ```shell
+    docker images
+    ```
 
-# remove the docker image, it can remove multiple images at once by adding more <image-id>
-docker image remove <image-id-1>
-```
+- remove the docker image, it can remove multiple images at once by adding more `<image-id>`
+    ```shell
+    docker image remove <image-id>
+    ```
 
-##### common docker command
+- remove the specific docker container, it can remove multiple images at once by adding more `<docker-container-id>`
+    ```shell
+    docker container remove <docker-container-id>
+    ```
 
-```shell
-# to see the running docker container
-docker ps
+- list the running docker container
+    ```shell
+    docker ps
+    ```
 
-# to see the running / exited docker container
-docker ps -a
+- list the running / exited docker container
+    ```shell
+    docker ps -a
+    ```
 
-# to see the docker images
-docker images
-
-# to remove the specific docker image
-docker image rm <docker-image-id>
-
-# to remove the specific docker container
-docker container remove <docker-container-id>
-
-# to rebuild a docker container if you modify something
-docker-compose up --build <service-name-in-docker-compose.yml>
-```
-
-#### MongoDB
-
-https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
-
-> Note that at the `ulimit Considerations` stage, remember to `open files` value to 64000
-
-_Note:_
-
-- enter db:
-
-```shell
-mongosh
-```
+## Common MongoDB command
+- enter db in terminal:
+    ```shell
+    mongosh
+    ```
 
 - switch db (ex: new-app)
-
-```shell
-use new-app
-```
+    ```shell
+    use new-app
+    ```
 
 - switch find documents from collection (ex: users collection)
-
-```shell
-db.users.find()
-```
+    ```shell
+    db.users.find()
+    ```
 
 - empty collection (ex: users collection)
-
-```shell
-db.users.deleteMany({})
-```
+    ```shell
+    db.users.deleteMany({})
+    ```

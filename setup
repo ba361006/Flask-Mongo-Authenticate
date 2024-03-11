@@ -31,6 +31,7 @@ echo
 # Defaults
 SECRET_KEY=`cat /dev/urandom | head -c 24 | base64`
 FLASK_PORT_DEFAULT=5000
+FLASK_DOMAIN_DEFAULT="http://localhost:$FLASK_PORT_DEFAULT"
 FLASK_DIRECTORY_DEFAULT="$(pwd)/api/"
 MONGO_HOSTNAME_DEFAULT="localhost"
 FRONTEND_DOMAIN_DEFAULT="http://localhost:3000"
@@ -44,6 +45,7 @@ echo
 # Port the Flask app will be running on
 read -p "Flask App Port [$FLASK_PORT_DEFAULT]: " FLASK_PORT
 FLASK_PORT=${FLASK_PORT:-$FLASK_PORT_DEFAULT}
+FLASK_DOMAIN="http://localhost:$FLASK_PORT" # A patch for the template
 echo
 
 # Domain of the front-end JavaScript application
@@ -83,10 +85,19 @@ cp -R $CONFIG_EXAMPLE_FILE $CONFIG_FILE
 #
 ########################################################################
 
+# Copy .env.sample to .env if it doesn't already exist
+if [ ! -f ./frontend/.env ]; then
+  cp ./frontend/.env.sample ./frontend/.env
+  echo "${GREEN}Created .env file from .env.sample."
+else
+  echo "${GREEN}.env file already exists."
+fi
+echo
+
 sed -i "s~##SECRET_KEY##~$SECRET_KEY~g" $CONFIG_FILE
 sed -i "s~##FLASK_PORT##~$FLASK_PORT~g" $CONFIG_FILE
 sed -i "s~##FRONTEND_DOMAIN##~$FRONTEND_DOMAIN~g" $CONFIG_FILE
-sed -i "s~##FLASK_DOMAIN##~$FRONTEND_DOMAIN~g" $CONFIG_FILE
+sed -i "s~##FLASK_DOMAIN##~$FLASK_DOMAIN~g" $CONFIG_FILE
 sed -i "s~##FLASK_DIRECTORY##~$FLASK_DIRECTORY~g" $CONFIG_FILE
 sed -i "s~##MONGO_HOSTNAME##~$MONGO_HOSTNAME~g" $CONFIG_FILE
 sed -i "s~##MONGO_APP_DATABASE##~$MONGO_APP_DATABASE~g" $CONFIG_FILE

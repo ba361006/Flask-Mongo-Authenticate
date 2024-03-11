@@ -12,27 +12,27 @@ services:
       # 3000 means within the container, it's listening to the port 3000
       - "3000"
     depends_on:
-      - app
+      - backend
     networks:
       - default-network
 
-  app:
+  backend:
     build: ./api
     ports:
         - "5000"
     networks:
       - default-network
-    extra_hosts:
-      # to allow this docker service communicate with host machine
-      # otherwise we have to get the gateway id via docker network
-      - "host.docker.internal:host-gateway"
+    # extra_hosts: # comment this out for prod
+    #   # to allow this docker service communicate with host machine
+    #   # otherwise we have to get the gateway id via docker network
+    #   - "host.docker.internal:host-gateway"
 
   nginx:
     image: nginx:1.24.0
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
-      - app
+      - backend
       - frontend
     ports:
       - "80:80"

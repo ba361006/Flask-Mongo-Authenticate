@@ -19,28 +19,32 @@ def create_app():
     # Flask Config
     app = Flask(__name__)
     app.config.from_pyfile("config/config.cfg")
-    # cors = CORS(
-    #     app, resources={r"/*": {"origins": "http://localhost:3000"}}
-    # )  # TODO: for prod
-    cors = CORS(
-        app, resources={r"/*": {"origins": app.config["FRONTEND_DOMAIN"]}}
-    )  # TODO: for dev
+    cors = CORS(app, resources={r"/*": {"origins": app.config["FRONTEND_DOMAIN"]}})
+
     app.template_folder = "."
     # Misc Config
     os.environ["TZ"] = app.config["TIMEZONE"]
 
     # Database Config
     if app.config["ENVIRONMENT"] == "development":
-        # mongo = MongoClient("host.docker.internal", 27017) # TODO: for prod
-        mongo = MongoClient(
-            app.config["MONGO_HOSTNAME"], app.config["MONGO_PORT"]
-        )  # TODO: for dev
+        mongo_client_host = "mongodb://{hostname}:{port}/{database}".format(
+            hostname=app.config["MONGO_HOSTNAME"],
+            port=app.config["MONGO_PORT"],
+            database=app.config["MONGO_APP_DATABASE"],
+        )
+        mongo = MongoClient(mongo_client_host)
         app.db = mongo[app.config["MONGO_APP_DATABASE"]]
     else:
-        mongo = MongoClient("localhost")
-        mongo[app.config["MONGO_AUTH_DATABASE"]].authenticate(
-            app.config["MONGO_AUTH_USERNAME"], app.config["MONGO_AUTH_PASSWORD"]
+        mongo_client_host = (
+            "mongodb://{username}:{password}@{hostname}:{port}/{database}".format(
+                username=app.config["MONGO_AUTH_USERNAME"],
+                password=app.config["MONGO_AUTH_PASSWORD"],
+                hostname=app.config["MONGO_HOSTNAME"],
+                port=app.config["MONGO_PORT"],
+                database=app.config["MONGO_APP_DATABASE"],
+            )
         )
+        mongo = MongoClient(mongo_client_host)
         app.db = mongo[app.config["MONGO_APP_DATABASE"]]
 
     # Register Blueprints

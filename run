@@ -1,6 +1,4 @@
 #!/bin/bash
-
-
 SRV='./srv'
 MONGODIR=${SRV}'/mongodb/'
 MONGOLOGS=${SRV}'/mongo_logs.txt'
